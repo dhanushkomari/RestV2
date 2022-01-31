@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {{user}}
+    <br><br>
+    {% for chef in chefs %}
+        {{chef}} <br>
+    {% endfor %}
+
+    <br><br>
+    {% for cat in cats %}
+        {{cat}} <br>
+    {% endfor %}
+
+    <br><br>
+    {% for order in today_orders %}
+        {{order.orderitem_id}} <br> {{order.product_name}} <br>  {{order.category_name}} <br><br>
+    {% endfor %}
+
+</body>
+</html>
