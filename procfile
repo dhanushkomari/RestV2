@@ -1,1 +1,1 @@
-web: gunicorn Restv2.wsgi --log-file -
+web: gunicorn Restv2.RestV2wsgi --log-file -
