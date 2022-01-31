@@ -25,7 +25,7 @@ SECRET_KEY = '9$u(t*g@&^7b#j-uck(z0^@anac+279b5s*7ypbs(^ti40%294'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['restv2.herokuapp.com']
 
 AUTH_USER_MODEL = 'AccountsApp.CustomUser'
 
