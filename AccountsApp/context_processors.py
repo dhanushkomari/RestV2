@@ -9,7 +9,7 @@ def data(request):
     chefs = user.Chef.all()     #[c1,c2,c3]
     cats = user.Category.all()  #[cat1, cat2, cat3, cat4, cat5, cat6]
 
-    # today_orders = OrderItem.objects.filter(created_at__date = date.today())
+    # today_orders = OrderItem.objects.filter(allocated = False, created_at__date = date.today())
     today_orders = OrderItem.objects.filter(allocated = False)
     
 

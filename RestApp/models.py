@@ -1,10 +1,21 @@
 from operator import truediv
 from django.db import models
 
+
+##########   choices   #####################
+
 gender_choices = (
     ('male', 'male'),
     ('female', 'female'),
 )
+
+allocation_choices = (
+    ('incomplete', 'incomplete'),
+    ('pending', 'pending'),
+    ('complete', 'completed')
+)
+############## end of choices  #############
+
 
 # Create your models here.
 class Category(models.Model):
@@ -76,6 +87,7 @@ class Allocation(models.Model):
     orderitem_category = models.CharField(max_length=100)
     quantity = models.IntegerField()
     chef = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, choices=allocation_choices, default='incomplete')
 
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
