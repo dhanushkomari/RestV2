@@ -17,7 +17,7 @@ admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(Chef)
 
 class AllocationAdmin(admin.ModelAdmin):
-    list_display = ['orderitem_id', 'orderitem_name', 'orderitem_category', 'quantity', 'chef', 'status']
+    list_display = ['id' ,'orderitem_id', 'orderitem_name', 'orderitem_category', 'quantity', 'chef', 'status']
     list_per_page = 50
     list_editable = ['status',]
 admin.site.register(Allocation, AllocationAdmin)
