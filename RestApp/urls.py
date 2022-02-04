@@ -5,5 +5,8 @@ app_name = 'RestApp'
 
 urlpatterns = [
     path('', views.HomeView, name = 'home'),
-    path('select-chef/<int:id>', views.SelectChef, name = 'select-chef')
+    path('select-chef/<int:id>', views.SelectChef, name = 'select-chef'),
+    path('pending-alloc-status/<str:id>/<str:chef_id>',  views.PendingAllocStatus, name = 'change-alloc-status'),
+    path('complete-alloc-status/<str:id>/<str:chef_id>',  views.CompleteAllocStatus, name = 'complete-alloc-status')
+
 ]

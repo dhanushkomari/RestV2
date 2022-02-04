@@ -8,7 +8,9 @@
 </head>
 <body>
     Home
-    <br><br>
+    <br>
+    
+    <br>
 
     {% for chef in chefs %}
         <a href="{% url 'RestApp:select-chef' chef.id %}">{{chef}}</a>    

@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    Chef Detail <br><br>
+    Chef Detail <br>{{chef.chef_name}} <br><br><br>
 
     {% for alloc in allocations %}
         {{alloc.id }} <br>
@@ -15,7 +15,10 @@
         {{alloc.orderitem_category}} <br>
         {{alloc.quantity}} <br>
         {{alloc.chef}} <br> 
-        {{alloc.status}} <br><br><br>
+         <a href="{% url 'RestApp:change-alloc-status' alloc.id  chef.id%}">
+            {{alloc.status}}
+         </a>
+             <br><br><br>
     {% endfor %} 
 </body>
 </html>
