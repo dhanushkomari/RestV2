@@ -9,41 +9,53 @@ def data(request):
         user = User.objects.get(username = request.user.username)   
         chefs = user.Chef.all()     # [c1,c2,c3]
         cats = user.Category.all()  # [cat1, cat2, cat3, cat4, cat5, cat6]
+        
+        cat_names = [i.category_name for i in cats]
 
         # today_orders = OrderItem.objects.filter(allocated = False, created_at__date = date.today())
         today_orders = OrderItem.objects.filter(allocated = False)
-        
+
+        cats_from_to = []
         for i in today_orders:
-            # Allocation logic goes here.
-            d = {}
-            for j in chefs:            
-                t_alloc = Allocation.objects.filter(chef = j.chef_name)
-                d[j.chef_name] = len(t_alloc)
-            try:
-                min_chef = min(d, key = d.get)
-            except:
-                min_chef = None
+            # Allocation logic
 
-            if min_chef != None:
-                alloc = Allocation.objects.create(
-                                                orderitem_id = i.orderitem_id,
-                                                orderitem_name = i.product_name,
-                                                orderitem_category = i.category_name,
-                                                quantity = i.quantity,
-                                                chef = min_chef,      
-                                                    )
-                alloc.save()
-                i.allocated= True
-                i.save()
+            ############## CHECKING THE ORDER ITEM CATEGORY    #################
+            if i.category_name in cat_names:
+                cats_from_to.append(i.category_name)
 
+            ####################################################################
 
+                d = {}
+                for j in chefs:            
+                    t_alloc = Allocation.objects.filter(chef = j.chef_name)
+                    d[j.chef_name] = len(t_alloc)
+                try:
+                    min_chef = min(d, key = d.get)
+                except:
+                    min_chef = None
 
-        return {
-            'n_user' : user,
-            'chefs' : chefs,
-            'cats' : cats,
-            'today_orders' : today_orders,
-        }
+                if min_chef != None:
+                    alloc = Allocation.objects.create(
+                                                    orderitem_id = i.orderitem_id,
+                                                    orderitem_name = i.product_name,
+                                                    orderitem_category = i.category_name,
+                                                    quantity = i.quantity,
+                                                    chef = min_chef,      
+                                                        )
+                    alloc.save()
+                    i.allocated= True
+                    i.save()
+
+            return {
+                'n_user' : user,
+                'chefs' : chefs,
+                'cats' : cats,
+                'today_orders' : today_orders,
+                'cat_names' : cat_names,
+                'cats_from_to' : cats_from_to
+            }
+            
+
     except:
         user = None
         return {

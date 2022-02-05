@@ -5,9 +5,13 @@ from datetime import date
 
 # Create your views here.
 
+
+# HOME VIEW
 def HomeView(request):
     return render(request, 'RestApp/home.html')
 
+
+# SELECT CHEF VIEW
 def SelectChef(request, id):
     chef = Chef.objects.get(id = id)    
     allocations = Allocation.objects.filter(created_at__date = date.today(), chef = chef.chef_name)
@@ -16,7 +20,7 @@ def SelectChef(request, id):
     return render(request, 'RestApp/chef_detail.html', {'chef' : chef, 'allocations':  allocations})
 
 
-
+# PENDING ALLOCATION VIEW
 def PendingAllocStatus(request, id, chef_id):
     allocation = Allocation.objects.get(id = id)
     allocation.status = 'pending'
@@ -26,7 +30,7 @@ def PendingAllocStatus(request, id, chef_id):
     return redirect('RestApp:select-chef', chef.id)
 
 
-
+# ALLOCATION COMPLETED VIEW
 def CompleteAllocStatus(request, id, chef_id):
     allocation = Allocation.objects.get(id = id)
     allocation.status = 'completed'
