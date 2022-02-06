@@ -38,3 +38,9 @@ def CompleteAllocStatus(request, id, chef_id):
     chef = Chef.objects.get(id = chef_id)  
 
     return redirect('RestApp:select-chef', chef.id)
+
+# Dashboard View
+def DashboardView(request):
+    no_of_alloc = len(Allocation.objects.all())
+    allocations = Allocation.objects.all()[:10]
+    return render(request, 'RestApp/dashboard.html', {'no_of_alloc' : no_of_alloc, 'allocations':allocations})

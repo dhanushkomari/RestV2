@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Dashboard &nbsp;|&nbsp; {{request.user.username}}{% endblock %}
+
+{% block breadcrumb %} Dashboard {% endblock %}
+
+{% block content %}
+<div class="row ">
+
+    <div class="col-md-4">
+        <div class="card l-bg-blue-dark">
+            <div class="card-statistic-3 p-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
+                <div class="mb-4">
+                    <h5 class="card-title mb-0">Active Chefs</h5>
+                </div>
+
+                <div class="row align-items-center mb-2 d-flex">
+                    <div class="col-8">
+                      <h4 class="d-flex align-items-center mb-0">
+                        {{no_of_chefs}}
+                      </h4>
+                    </div>
+                </div>
+            </div>
+        </div>            
+    </div>
+
+    <div class="col-md-4">
+        <div class="card l-bg-orange-dark">
+            <div class="card-statistic-3 p-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-project-diagram"></i></div>
+                <div class="mb-4">
+                    <h5 class="card-title mb-0">Categories</h5>
+                </div>
+
+                <div class="row align-items-center mb-2 d-flex">
+                    <div class="col-8">
+                      <h4 class="d-flex align-items-center mb-0">
+                        {{no_of_cats}}
+                      </h4>
+                    </div>
+                </div>
+            </div>
+        </div>            
+    </div>
+        
+    <div class="col-md-4">
+        <div class="card l-bg-cherry">
+            <div class="card-statistic-3 p-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i></div>
+                <div class="mb-4">
+                    <h5 class="card-title mb-0">Allocated Orders</h5>
+                </div>
+
+                <div class="row align-items-center mb-2 d-flex">
+                    <div class="col-8">
+                      <h4 class="d-flex align-items-center mb-0">
+                        {{no_of_alloc}}
+                      </h4>
+                    </div>
+                </div>
+            </div>
+        </div>            
+    </div>
+
+    
+
+
+
+
+
+
+</div>
+
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4>Allocations List</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive" id="proTeamScroll">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Allocation ID</th>
+                  <th>OrderItem ID</th>
+                  <th>Chef</th>
+                  <th>OrderItem Name</th>
+                  <th>OrderItem Category</th>
+                  <th>Quantity</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              {% for alloc in allocations%}
+
+              <tr>
+                <td>
+                    <h6 class="mb-0 font-13 text-center"><b> {{alloc.id}}</b></h6>
+                </td>
+                <td class="">{{alloc.orderitem_id}}</td>
+
+                <td>
+                  <h6 class="mb-0 font-13">
+                    <ul class="list-unstyled order-list m-b-0">
+                        <li class="team-member team-member-sm"><img class="rounded-circle"
+                            src="{% static "assets/img/users/user-8.png" %}" alt="user" data-toggle="tooltip" title=""
+                            data-original-title="{{chef}}"></li>                       
+                            <li class="avatar avatar-sm"><span class="badge badge-warning">{{alloc.chef}}</span></li>
+                      </ul>
+                     <!-- {{alloc.chef}} -->
+                    </h6>
+                  
+                </td>
+                <td class="text-truncate">
+                    {{alloc.orderitem_name}}
+                </td>
+                <td>
+                    {{alloc.orderitem_category}}
+
+                </td>
+                <td class="align-middle">
+                  
+                  <span class="badge badge-secondary">{{alloc.quantity}}</span>
+                <td>
+
+                    {% ifequal alloc.status 'incomplete'%}<div class="badge-outline col-orange">{{alloc.status}}</div>{% endifequal %}
+                    {% ifequal alloc.status 'pending'%}<div class="badge-outline col-red">{{alloc.status}}</div>{% endifequal %}
+                    {% ifequal alloc.status 'complete'%}<div class="badge-outline col-green">{{alloc.status}}</div>{% endifequal %}
+            
+                  
+                </td>
+              </tr>
+
+              {% endfor %}
+
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
