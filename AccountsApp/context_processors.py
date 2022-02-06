@@ -9,11 +9,15 @@ def data(request):
         user = User.objects.get(username = request.user.username)   
         chefs = user.Chef.all()     # [c1,c2,c3]
         cats = user.Category.all()  # [cat1, cat2, cat3, cat4, cat5, cat6]
+        cats_list = [i.category_name for i in cats]
+
 
         # today_orders = OrderItem.objects.filter(allocated = False, created_at__date = date.today())
         today_orders = OrderItem.objects.filter(allocated = False)
+        filtered_orders = [i for i in today_orders if i.category_name in cats_list]
         
-        for i in today_orders:
+        
+        for i in filtered_orders:
             # Allocation logic goes here.
             d = {}
             for j in chefs:            
@@ -35,15 +39,16 @@ def data(request):
                 alloc.save()
                 i.allocated= True
                 i.save()
-
-
-
+    
         return {
             'n_user' : user,
             'chefs' : chefs,
             'cats' : cats,
             'today_orders' : today_orders,
+            'cats_list' : cats_list,
+            'filtered_orders' : filtered_orders,
         }
+    
     except:
         user = None
         return {
@@ -52,4 +57,3 @@ def data(request):
             'cats' : None,
             'today_orders' : None,
         }
-        

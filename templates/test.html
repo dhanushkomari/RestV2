@@ -18,12 +18,22 @@
         {{cat}} <br>
     {% endfor %}
 
-    <br><br>
-    {% for order in today_orders %}
-        {{order.orderitem_id}} <br> {{order.product_name}} <br>  {{order.category_name}} <br><br>
-    {% endfor %}
-
+    
     <br><br>
     {{min_chef}}
+
+    <br><br>    
+    {{cat_names}}
+
+    <br><br>
+    {{cats_from_to}}
+
+    <br><br>cats list
+
+    <br>{{cats_list}}
+
+    <br><br>
+    filtered_orders
+    <br>{{filtered_orders}}
 </body>
 </html>
