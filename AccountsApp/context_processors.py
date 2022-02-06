@@ -15,7 +15,6 @@ def data(request):
         # today_orders = OrderItem.objects.filter(allocated = False, created_at__date = date.today())
         today_orders = OrderItem.objects.filter(allocated = False)
         filtered_orders = [i for i in today_orders if i.category_name in cats_list]
-
         
         
         for i in filtered_orders:
