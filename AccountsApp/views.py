@@ -34,7 +34,7 @@ def LoginView(request):
                 
                 if user is not None:
                     login(request, user)
-                    return redirect('RestApp:home')
+                    return redirect('RestApp:chef-list')
                 else:
                     messages.info(request, 'Invalid Credentials')
                     return redirect('AccountsApp:login')

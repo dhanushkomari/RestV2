@@ -37,6 +37,7 @@ class Category(models.Model):
 class Chef(models.Model):
     chef_name = models.CharField(max_length = 30)
     chef_decription = models.TextField(blank = True, null = True)
+    chef_image = models.ImageField(upload_to = 'Chefs', blank = True, null = True)
     gender = models.CharField(max_length=10, choices=gender_choices)
     mobile = models.CharField(max_length = 12)
     active = models.BooleanField(default = True)

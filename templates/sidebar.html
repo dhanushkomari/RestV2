@@ -2,7 +2,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper"><br>
       <div class="sidebar-brand">
-        <a href="index-2.html"> <img alt="image" src="{% static "assets/img/vistanlogo.png" %}" class="header-logo" /> <span
+        <a href="{% url 'RestApp:dashboard' %}"> <img alt="image" src="{% static "assets/img/vistanlogo.png" %}" class="header-logo" /> <span
             class="logo-name"><span style="color: azure;">Vistan</span></span>
         </a>
       </div>
@@ -12,18 +12,14 @@
            
         <li class="menu-header">{{request.user.username}}</li>
         <li>
-            <a href="" ><i
+            <a href="{% url 'RestApp:dashboard' %}" ><i
                 data-feather="airplay"></i><span>Dashboard</span></a>
           </li>
-        <li class="dropdown">
-          <a href="#" class="menu-toggle nav-link has-dropdown"><i
-              data-feather="user"></i><span>Chefs</span></a>
-          <ul class="dropdown-menu">
-            {% for chef in chefs%}
-                <li><a class="nav-link" href="widget-chart.html">{{chef}}</a></li>            
-            {% endfor %}
-          </ul>
-        </li>
+          <li>
+            <a href="{% url 'RestApp:chef-list' %}" ><i
+                data-feather="user"></i><span>Chefs</span></a>
+          </li>
+
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="box"></i><span>Categories</span></a>
           <ul class="dropdown-menu">
