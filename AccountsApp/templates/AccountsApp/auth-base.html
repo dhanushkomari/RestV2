@@ -1,0 +1,60 @@
+  
+<html lang="en">
+    <!DOCTYPE html>
+    {% load static %}
+    
+    
+    
+    <head>
+      <meta charset="UTF-8">
+      <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+      <title>{% block title %}{% endblock %}</title>
+      <!-- General CSS Files -->
+      <link rel="stylesheet" href="{% static "assets/css/app.min.css" %}">
+      <link rel="stylesheet" href="{% static "assets/bundles/bootstrap-social/bootstrap-social.css" %}">
+      <!-- Template CSS -->
+      <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+      <link rel="stylesheet" href="{% static "assets/css/components.css" %}">
+      <!-- Custom style CSS -->
+      <link rel="stylesheet" href="{% static "assets/css/custom.css" %}">
+      <link rel='shortcut icon' type='image/x-icon' href="{% static "assets/img/favicon_vistan.ico" %}"/>
+      <link rel="stylesheet" href="{% static "assets/bundles/izitoast/css/iziToast.min.css" %}">
+    
+    </head>
+    
+    <body>
+      <div class="loader"></div>
+      <div id="app">
+        <section class="section">
+          <div class="container mt-5">
+    
+    {% block content %}
+    {% endblock %}
+    
+            </div>
+          </div>
+        </section>
+      </div>
+    
+    
+    
+    <!-- General JS Scripts -->
+      <script src="{% static "assets/js/app.min.js" %}"></script>
+      <!-- JS Libraies -->
+      <!-- Page Specific JS File -->
+      <!-- Template JS File -->
+      <script src="{% static "assets/js/scripts.js" %}"></script>
+      <!-- Custom JS File -->
+      <script src="{% static "assets/js/custom.js" %}"></script>
+      <script src="{% static "assets/bundles/izitoast/js/iziToast.min.js" %}"></script>
+    
+      {% block js%}
+      {% endblock %}
+    
+      
+    
+    </body>
+    
+    
+    
+    </html>

@@ -47,6 +47,8 @@ def data(request):
             'today_orders' : today_orders,
             'cats_list' : cats_list,
             'filtered_orders' : filtered_orders,
+            'no_of_chefs' : len(chefs),
+            'no_of_cats' : len(cats),
         }
     
     except:
