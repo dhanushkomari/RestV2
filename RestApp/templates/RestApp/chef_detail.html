@@ -33,23 +33,36 @@
                             <td>{{alloc.quantity}}</td>
                             <td>
                                 {% ifequal alloc.status 'pending'%}
-                                    <div class="badge badge-warning">{{alloc.status }}</div>
+                                    <div class="badge badge-warning">{{alloc.status}}</div>
                                 {% else %}
-                                    <div class="badge badge-danger">{{alloc.status }}</div>
+                                    <div class="badge badge-danger">{{alloc.status}}</div>
                                 {% endifequal %}
 
                             </td>
                             <td>
-                                <a class="btn btn-md btn-dark" style="text-decoration: none;" href=""
-                                    data-toggle="tooltip" data-placement="top"
-                                    title="start"
-                                ><i class="fas fa-eye"></i> </a>&nbsp;
+                                {% ifequal alloc.status 'incomplete' %}
+                                    <a  class="btn btn-md btn-dark" 
+                                        style="text-decoration: none;" 
+                                        href="{% url 'RestApp:pending-alloc-status' alloc.id  chef.id%}"
+                                        data-toggle="tooltip" data-placement="top"
+                                        title="start">
+                                        start
+                                    </a>&nbsp;
+                                {% endifequal %}
 
-                                <a class="btn btn-md btn-info" style="text-decoration: none;" 
-                                    href=""
-                                    data-toggle="tooltip" data-placement="top"
-                                    title="competed"
-                                ><i class="fas fa-pen"></i> </a>&nbsp;            
+                                                           
+                                {% ifequal alloc.status 'pending' %}
+                                
+                                    <a  class="btn btn-md btn-info" 
+                                        style="text-decoration: none;" 
+                                        href="{% url 'RestApp:complete-alloc-status' alloc.id chef.id %}"
+                                        data-toggle="tooltip" data-placement="top"
+                                        title="complete">
+                                        Complete
+                                        <!-- <i class="fas fa-pen"></i>  -->
+                                    </a>&nbsp;  
+                                {% endifequal %}
+
                             </td>
                         </tr> 
                     {% endfor %}
