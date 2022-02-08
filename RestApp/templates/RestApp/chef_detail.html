@@ -1,24 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    Chef Detail <br>{{chef.chef_name}} <br><br><br>
+{% extends 'base.html' %}
+{% load static %}
 
-    {% for alloc in allocations %}
-        {{alloc.id }} <br>
-        {{alloc.orderitem_name}} <br>
-        {{alloc.orderitem_category}} <br>
-        {{alloc.quantity}} <br>
-        {{alloc.chef}} <br> 
-         <a href="{% url 'RestApp:change-alloc-status' alloc.id  chef.id%}">
-            {{alloc.status}}
-         </a>
-             <br><br><br>
-    {% endfor %} 
-</body>
-</html>
+{% block breadcrumb %}Chef Detail &nbsp;/ &nbsp;{{chef}}{% endblock %}
+
+{% block content %}
+
+
+<div class="card card-warning">
+    <div class="card-header">
+        <h4>Orders | {{chef}}</h4>
+        <div class="card-header-action"><br></div>
+    </div>
+
+    <div class="table-responsive">
+        <div class="card-body p-0">
+            {% if allocations %}                
+                <table class="table table-striped" id = "myTable">
+                    <tr>
+                        <th class="text-center" onclick="sortTable(0)">Allocation ID&nbsp;<i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable(1)">Orderitem Name&nbsp;<i class="fas fa-sort"></i></th>
+                        <th>Orderitem Category</th>
+                        <th>Quantity</th>
+                        <th>Status</th>               
+                        <th>Action</th>
+                    </tr>
+                    
+                    {% for alloc in allocations %}
+                        <tr>
+                            <td class="p-0 text-center">{{alloc.id}} </td>
+                            <td>{{alloc.orderitem_name|title}}</td>
+                            <td>{{alloc.orderitem_category|title}}</td>
+                            <td>{{alloc.quantity}}</td>
+                            <td>
+                                {% ifequal alloc.status 'pending'%}
+                                    <div class="badge badge-warning">{{alloc.status }}</div>
+                                {% else %}
+                                    <div class="badge badge-danger">{{alloc.status }}</div>
+                                {% endifequal %}
+
+                            </td>
+                            <td>
+                                <a class="btn btn-md btn-dark" style="text-decoration: none;" href=""
+                                    data-toggle="tooltip" data-placement="top"
+                                    title="start"
+                                ><i class="fas fa-eye"></i> </a>&nbsp;
+
+                                <a class="btn btn-md btn-info" style="text-decoration: none;" 
+                                    href=""
+                                    data-toggle="tooltip" data-placement="top"
+                                    title="competed"
+                                ><i class="fas fa-pen"></i> </a>&nbsp;            
+                            </td>
+                        </tr> 
+                    {% endfor %}
+                     
+                </table>
+            {% else %}
+            <br>
+                <h6 class="text-center" style="color: orangered;">No orders till now ! </h6>   
+            <br> 
+            {% endif %}
+          </div>
+    </div>
+   
+
+</div>
+    
+
+{% endblock %}

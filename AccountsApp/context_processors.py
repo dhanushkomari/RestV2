@@ -10,12 +10,12 @@ def data(request):
         chefs = user.Chef.all()     # [c1,c2,c3]
         cats = user.Category.all()  # [cat1, cat2, cat3, cat4, cat5, cat6]
         cats_list = [i.category_name for i in cats]
-
-
+        
         # today_orders = OrderItem.objects.filter(allocated = False, created_at__date = date.today())
         today_orders = OrderItem.objects.filter(allocated = False)
         filtered_orders = [i for i in today_orders if i.category_name in cats_list]
         
+        #####   Need to write the extra logic here for the chef categoty wise  #### 
         
         for i in filtered_orders:
             # Allocation logic goes here.
