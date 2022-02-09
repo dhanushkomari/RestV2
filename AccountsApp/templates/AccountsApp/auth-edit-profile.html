@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %} Edit Profile | {{request.user.username}} {% endblock %}
+
+{% block breadcrumb %} Edit Your Profile {% endblock %}
+
+{% block content %}
+    
+<div class="card">
+    <div class="card-header">
+    <h4>Edit Profile </h4>
+</div>
+      
+<div class="card-body">       
+    <div class="container">
+        <form method = "POST" class = "needs-validation" novalidate="">
+            {% csrf_token %}            
+            
+            <div class="form-row">
+                <div class="form-group col-md-6 col-sm-12">
+                    {{form.first_name|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    {{form.last_name|as_crispy_field}}
+                </div>                
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6 col-sm-12">
+                    {{form.Chef|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    {{form.Category|as_crispy_field}}
+                </div>                
+            </div>
+            <button href="" method = "POST" class = "btn btn-md btn-success">Update</a>
+
+        </form>
+    </div> 
+</div>    
+
+
+{% endblock %}

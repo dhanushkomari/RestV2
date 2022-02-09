@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from RestApp.models import Chef, Allocation
 from django.contrib.auth.decorators import login_required
@@ -36,6 +35,8 @@ def CompleteAllocStatus(request, id, chef_id):
 # Dashboard View
 @login_required(login_url='/')
 def DashboardView(request):
+    chefs = request.user.Chef.all()
+    
     no_of_alloc = len(Allocation.objects.all())
     allocations = Allocation.objects.all()[:10]
     return render(request, 'RestApp/dashboard.html', {'no_of_alloc' : no_of_alloc, 'allocations':allocations})

@@ -6,156 +6,155 @@
 {% block breadcrumb %}Chef Detail &nbsp;/ &nbsp;{{chef}}{% endblock %}
 
 {% block content %}
-<div class="card card-warning">
-    <div class="card-header">
-        <h4>Orders | {{chef}}</h4>
-        <div class="card-header-action"><br></div>
-    </div>
+    <div class="card card-warning">
+        <div class="card-header">
+            <h4>Orders | {{chef}}</h4>
+            <div class="card-header-action"><br></div>
+        </div>
 
-    <div class="table-responsive">
-        <div class="card-body p-0">
-            {% if allocations %}                
-                <table class="table table-striped" id = "myTable">
-                    <tr>
-                        <th class="text-center" onclick="sortTable(0)">Allocation ID&nbsp;<i class="fas fa-sort"></i></th>
-                        <th onclick="sortTable(1)">Orderitem Name&nbsp;<i class="fas fa-sort"></i></th>
-                        <th>Orderitem Category</th>
-                        <th>Quantity</th>
-                        <th>Status</th>               
-                        <th>Action</th>
-                    </tr>
-                    
-                    {% for alloc in allocations %}
+        <div class="table-responsive">
+            <div class="card-body p-0">
+                {% if allocations %}                
+                    <table class="table table-striped" id = "myTable">
                         <tr>
-                            <td class="p-0 text-center">{{alloc.id}} </td>
-                            <td>{{alloc.orderitem_name|title}}</td>
-                            <td>{{alloc.orderitem_category|title}}</td>
-                            <td>{{alloc.quantity}}</td>
-                            <td>
-                                {% ifequal alloc.status 'pending'%}
-                                    <div class="badge badge-warning">{{alloc.status}}</div>
-                                {% else %}
-                                    <div class="badge badge-danger">{{alloc.status}}</div>
-                                {% endifequal %}
+                            <th class="text-center" onclick="sortTable(0)">Allocation ID&nbsp;<i class="fas fa-sort"></i></th>
+                            <th onclick="sortTable(1)">Orderitem Name&nbsp;<i class="fas fa-sort"></i></th>
+                            <th>Orderitem Category</th>
+                            <th>Quantity</th>
+                            <th onclick="sortTable(4)">Status&nbsp;<i class="fas fa-sort"></i></th>               
+                            <th>Action</th>
+                        </tr>
+                        
+                        {% for alloc in allocations %}
+                            <tr>
+                                <td class="p-0 text-center">{{alloc.id}} </td>
+                                <td>{{alloc.orderitem_name|title}}</td>
+                                <td>{{alloc.orderitem_category|title}}</td>
+                                <td>{{alloc.quantity}}</td>
+                                <td>
+                                    {% ifequal alloc.status 'pending'%}
+                                        <div class="badge badge-warning">{{alloc.status}}</div>
+                                    {% else %}
+                                        <div class="badge badge-danger">{{alloc.status}}</div>
+                                    {% endifequal %}
 
-                            </td>
-                            <td>
-                                {% ifequal alloc.status 'incomplete' %}
-                                    <a  class="btn btn-md btn-dark" 
-                                        style="text-decoration: none;" 
-                                        href="{% url 'RestApp:pending-alloc-status' alloc.id  chef.id%}"
-                                        data-toggle="tooltip" data-placement="top"
-                                        title="start">
-                                        start
-                                    </a>&nbsp;
-                                {% endifequal %}
+                                </td>
+                                <td>
+                                    {% ifequal alloc.status 'incomplete' %}
+                                        <a  class="btn btn-md btn-dark" 
+                                            style="text-decoration: none;" 
+                                            href="{% url 'RestApp:pending-alloc-status' alloc.id  chef.id%}"
+                                            data-toggle="tooltip" data-placement="top"
+                                            title="start">
+                                            start
+                                        </a>&nbsp;
+                                    {% endifequal %}
 
-                                                           
-                                {% ifequal alloc.status 'pending' %}
-                                
-                                    <a  class="btn btn-md btn-info" 
-                                        style="text-decoration: none;" 
-                                        href="{% url 'RestApp:complete-alloc-status' alloc.id chef.id %}"
-                                        data-toggle="tooltip" data-placement="top"
-                                        title="complete">
-                                        Complete
-                                        <!-- <i class="fas fa-pen"></i>  -->
-                                    </a>&nbsp;  
-                                {% endifequal %}
+                                                            
+                                    {% ifequal alloc.status 'pending' %}
+                                    
+                                        <a  class="btn btn-md btn-info" 
+                                            style="text-decoration: none;" 
+                                            href="{% url 'RestApp:complete-alloc-status' alloc.id chef.id %}"
+                                            data-toggle="tooltip" data-placement="top"
+                                            title="complete">
+                                            Complete
+                                            <!-- <i class="fas fa-pen"></i>  -->
+                                        </a>&nbsp;  
+                                    {% endifequal %}
 
-                            </td>
-                        </tr> 
-                    {% endfor %}
-                     
-                </table>
-            {% else %}
-            <br>
-                <h6 class="text-center" style="color: orangered;">No orders till now ! </h6>   
-            <br> 
-            {% endif %}
-          </div>
-    </div>
-   
-
-</div>
+                                </td>
+                            </tr> 
+                        {% endfor %}
+                        
+                    </table>
+                {% else %}
+                <br>
+                    <h6 class="text-center" style="color: orangered;">No orders till now ! </h6>   
+                <br> 
+                {% endif %}
+            </div>
+        </div>
     
 
+    </div>
 {% endblock %}
 
+
 {% block js %}
-<script>
-  function myFunction() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
+    <script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+
+        console.log(input, filter, table);
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            } else {
+            tr[i].style.display = "none";
+            }
+        }       
+        }
+    }
+
+
+
+    function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("myTable");
-
-    console.log(input, filter, table);
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[1];
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
+    switching = true;  
+    dir = "asc"; 
+    while (switching) {    
+        switching = false;
+        rows = table.rows;   
+        for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {          
+            shouldSwitch = true;
+            break;
+            }
+        } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {          
+            shouldSwitch = true;
+            break;
+            }
+        }
+        }
+        if (shouldSwitch) {     
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;      
+        switchcount ++;
         } else {
-          tr[i].style.display = "none";
+        if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
         }
-      }       
-    }
-  }
-
-
-
-  function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable");
-  switching = true;  
-  dir = "asc"; 
-  while (switching) {    
-    switching = false;
-    rows = table.rows;   
-    for (i = 1; i < (rows.length - 1); i++) {
-      shouldSwitch = false;
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {          
-          shouldSwitch = true;
-          break;
         }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {          
-          shouldSwitch = true;
-          break;
-        }
-      }
     }
-    if (shouldSwitch) {     
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;      
-      switchcount ++;
-    } else {
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
     }
-  }
-}
-  
+    
 
 
-{% if messages %}
-    console.log('message')
+    {% if messages %}
+        console.log('message')
 
-            iziToast.show({
-                            title: 'Hii',
-                            message: '{% for i in messages %}{{i}}{%endfor%}',
-                            position: 'topRight',
-                            color: 'success'
-                        });
-{% endif %}
+                iziToast.show({
+                                title: 'Hii',
+                                message: '{% for i in messages %}{{i}}{%endfor%}',
+                                position: 'topRight',
+                                color: 'success'
+                            });
+    {% endif %}
 
-</script>
+    </script>
 {% endblock %}

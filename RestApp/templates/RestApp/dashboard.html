@@ -101,6 +101,7 @@
                 <td>
                     <h6 class="mb-0 font-13 text-center"><b> {{alloc.id}}</b></h6>
                 </td>
+
                 <td class="">{{alloc.orderitem_id}}</td>
 
                 <td>
@@ -111,28 +112,27 @@
                             data-original-title="{{chef}}"></li>                       
                             <li class="avatar avatar-sm"><span class="badge badge-warning">{{alloc.chef}}</span></li>
                       </ul>
-                     <!-- {{alloc.chef}} -->
-                    </h6>
-                  
+                    </h6>                  
                 </td>
+
                 <td class="text-truncate">
                     {{alloc.orderitem_name}}
                 </td>
+
                 <td>
                     {{alloc.orderitem_category}}
-
                 </td>
-                <td class="align-middle">
-                  
+
+                <td class="align-middle">                  
                   <span class="badge badge-secondary">{{alloc.quantity}}</span>
-                <td>
-
-                    {% ifequal alloc.status 'incomplete'%}<div class="badge-outline col-orange">{{alloc.status}}</div>{% endifequal %}
-                    {% ifequal alloc.status 'pending'%}<div class="badge-outline col-red">{{alloc.status}}</div>{% endifequal %}
-                    {% ifequal alloc.status 'complete'%}<div class="badge-outline col-green">{{alloc.status}}</div>{% endifequal %}
-            
-                  
                 </td>
+
+                <td>
+                    {% ifequal alloc.status 'incomplete'%}<div class="badge-outline col-orange">{{alloc.status}}</div>{% endifequal %}
+                    {% ifequal alloc.status 'pending' %}<div class="badge-outline col-red">{{alloc.status}}</div>{% endifequal %}
+                    {% ifequal alloc.status 'complete'%}<div class="badge-outline col-green">{{alloc.status}}d</div>{% endifequal %}
+                </td>
+                
               </tr>
 
               {% endfor %}
