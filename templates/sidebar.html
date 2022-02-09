@@ -19,20 +19,25 @@
             <a href="{% url 'RestApp:chef-list' %}" ><i
                 data-feather="user"></i><span>Chefs</span></a>
           </li>
+          <li>
+
+            <a href="" ><i
+                data-feather="pie-chart"></i><span>Reports</span></a>
+          </li>
 
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="box"></i><span>Categories</span></a>
           <ul class="dropdown-menu">
             {% for cat in cats%}
-                <li><a class="nav-link" href="widget-chart.html">{{cat}}</a></li>            
+                <li><a class="nav-link" href="">{{cat}}</a></li>            
             {% endfor %}
           </ul>
         </li>
 
         <li class="dropdown">
-          <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Settings</span></a>
+          <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="settings"></i><span>Settings</span></a>
           <ul class="dropdown-menu">
-            <li><a class="nav-link" href="">Edit Profile</a></li>
+            <li><a class="nav-link" href="{% url 'AccountsApp:edit-profile' request.user.id %}">Edit Profile</a></li>
             <li><a class="nav-link" href="{% url 'AccountsApp:change-password' request.user.id %}">Change Password</a></li>
             <li><a class="nav-link" href="{% url 'AccountsApp:logout' %}">Logout</a></li>
           </ul>

@@ -1,8 +1,13 @@
+from curses.ascii import US
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from AccountsApp.models import CustomUser as User       
+from AccountsApp.models import CustomUser as User  
+from AccountsApp.forms import UserProfileForm  
+from django.shortcuts import get_object_or_404   
+
 
 
 # Create your views here.
@@ -86,6 +91,26 @@ def ChangePaswordView(request, id):
             return redirect('AccountsApp:change-password', user.id)
     else:
         return render(request, 'AccountsApp/auth-change-password.html')
+
+
+##############################################################
+#############   EDIT PROFILE VIEW    #########################
+##############################################################
+@login_required(login_url= '/')
+def EditProfileView(request, id):
+    if request.method == "POST":
+        obj = get_object_or_404(User, id = id)
+        form = UserProfileForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Profile Updated Successfully')
+            return redirect('AccountsApp:edit-profile', request.user.id)
+        else:
+            return HttpResponse(form.errors)
+    else:
+        user = User.objects.get(id = id)
+        form = UserProfileForm(instance=user)
+        return render(request, 'AccountsApp/auth-edit-profile.html', {'form' :form})
             
 
         

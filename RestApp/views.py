@@ -1,5 +1,3 @@
-from ctypes.wintypes import PINT
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from RestApp.models import Chef, Allocation
 from django.contrib.auth.decorators import login_required

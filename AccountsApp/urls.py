@@ -15,6 +15,7 @@ urlpatterns = [
     path('', views.LoginView, name = 'login'),
     path('logout', views.LogoutView, name = 'logout'),
     path('change-password/<int:id>', views.ChangePaswordView, name = 'change-password'),
+    path('edit-profile/<str:id>', views.EditProfileView, name = 'edit-profile'),
 
     ###############  END OF ACCOUNT URLS   ###################
 ]
