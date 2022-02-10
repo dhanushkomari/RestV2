@@ -41,7 +41,7 @@ def LoginView(request):
                     login(request, user)
                     return redirect('RestApp:chef-list')
                 else:
-                    messages.info(request, 'Invalid Credentials')
+                    messages.info(request, 'Oops! Invalid Credentials')
                     return redirect('AccountsApp:login')
             else:
                 messages.info(request, 'username and password cannot be empty')

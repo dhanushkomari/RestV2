@@ -24,8 +24,51 @@
                             <th onclick="sortTable(4)">Status&nbsp;<i class="fas fa-sort"></i></th>               
                             <th>Action</th>
                         </tr>
+
+
+                        <tr>
+                            <td class="p-0 text-center">{{alloc_1.id}} </td>
+                            <td>{{alloc_1.orderitem_name|title}}</td>
+                            <td>{{alloc_1.orderitem_category|title}}</td>
+                            <td>{{alloc_1.quantity}}</td>
+                            <td>
+                                {% ifequal alloc_1.status 'pending'%}
+                                    <div class="badge badge-warning">{{alloc_1.status}}</div>
+                                {% else %}
+                                    <div class="badge badge-danger">{{alloc_1.status}}</div>
+                                {% endifequal %}
+
+                            </td>
+                            <td>
+                                {% ifequal alloc_1.status 'incomplete' %}
+                                    <a  class="btn btn-md btn-primary" 
+                                        style="text-decoration: none;" 
+                                        href="{% url 'RestApp:pending-alloc-status' alloc_1.id  chef.id%}"
+                                        data-toggle="tooltip" data-placement="top"
+                                        title="start">
+                                        start
+                                    </a>&nbsp;
+                                {% endifequal %}
+
+
+                                                        
+                                {% ifequal alloc_1.status 'pending' %}
+                                
+                                    <a  class="btn btn-md btn-info" 
+                                        style="text-decoration: none;" 
+                                        href="{% url 'RestApp:complete-alloc-status' alloc_1.id chef.id %}"
+                                        data-toggle="tooltip" data-placement="top"
+                                        title="complete">
+                                        Complete
+                                        <!-- <i class="fas fa-pen"></i>  -->
+                                    </a>&nbsp;  
+                                {% endifequal %}
+
+                            </td>
+                        </tr> 
+
                         
-                        {% for alloc in allocations %}
+                        {% for alloc in alloc_2 %}
                             <tr>
                                 <td class="p-0 text-center">{{alloc.id}} </td>
                                 <td>{{alloc.orderitem_name|title}}</td>
@@ -41,7 +84,7 @@
                                 </td>
                                 <td>
                                     {% ifequal alloc.status 'incomplete' %}
-                                        <a  class="btn btn-md btn-dark" 
+                                        <a  class="btn btn-md btn-warning disabled btn-progress" 
                                             style="text-decoration: none;" 
                                             href="{% url 'RestApp:pending-alloc-status' alloc.id  chef.id%}"
                                             data-toggle="tooltip" data-placement="top"
@@ -53,7 +96,7 @@
                                                             
                                     {% ifequal alloc.status 'pending' %}
                                     
-                                        <a  class="btn btn-md btn-info" 
+                                        <a  class="btn btn-md btn-info disabled btn-progress" 
                                             style="text-decoration: none;" 
                                             href="{% url 'RestApp:complete-alloc-status' alloc.id chef.id %}"
                                             data-toggle="tooltip" data-placement="top"
