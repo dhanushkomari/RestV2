@@ -27,7 +27,7 @@ def PendingAllocStatus(request, id, chef_id):
 @login_required(login_url='/')
 def CompleteAllocStatus(request, id, chef_id):
     allocation = Allocation.objects.get(id = id)
-    allocation.status = 'completed'
+    allocation.status = 'complete'
     allocation.save()
     chef = Chef.objects.get(id = chef_id)  
     return redirect('RestApp:select-chef', chef.id)

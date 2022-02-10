@@ -12,7 +12,7 @@ gender_choices = (
 allocation_choices = (
     ('incomplete', 'incomplete'),
     ('pending', 'pending'),
-    ('complete', 'completed')
+    ('complete', 'complete')
 )
 ############## end of choices  #############
 
