@@ -36,6 +36,20 @@
           </ul>
           <div class="section-body">
             <!-- add content here -->
+
+            {% if messages %}
+              {% for i in messages%}
+              <div class="alert alert-success alert-dismissible show fade">
+                  <div class="alert-body">
+                  <button class="close" data-dismiss="alert">
+                      <span>&times;</span>
+                  </button>
+                  {{i}}
+                  </div>
+              </div>
+              {% endfor %}
+          {% endif %}
+
             {% block content %}
             {% endblock %}
           </div>

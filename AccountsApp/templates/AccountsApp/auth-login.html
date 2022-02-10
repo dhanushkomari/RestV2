@@ -54,3 +54,23 @@
    
 
 {% endblock %}
+
+
+{% block js %}
+{% if messages%}
+  <script>
+        iziToast.show({
+                        title: '',
+                        message: '{% for i in messages %}{{i}}{%endfor%}',
+                        position: 'topRight',
+                        color: 'red'
+                        /* {% for i in messages%}
+                          {% ifequal 'danger' i.tags %} red
+                          {% else %} green
+                          {% endifequal%}
+                        {% endfor %} */
+                    });
+  </script>
+  {% endif %}
+
+{% endblock %}

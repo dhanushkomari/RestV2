@@ -63,5 +63,28 @@ def SelectChef(request, id):
     allocations = Allocation.objects.filter(
         (Q(chef = chef.chef_name)) & ( Q(status = 'incomplete') | Q(status = 'pending'))
     )
+    if len(allocations) == 1:
+        alloc_1 = allocations[0]
+        return render(request, 'RestApp/chef_detail.html', {
+                                                        'chef' : chef, 
+                                                        'allocations':  allocations, 
+                                                        'alloc_1' : alloc_1,
+                                                        })
 
-    return render(request, 'RestApp/chef_detail.html', {'chef' : chef, 'allocations':  allocations})
+    elif len(allocations) > 1:
+        alloc_1 = allocations[0]
+        alloc_2 = allocations[1:]
+
+        return render(request, 'RestApp/chef_detail.html', {
+                                                'chef' : chef, 
+                                                'allocations':  allocations, 
+                                                'alloc_1' : alloc_1,
+                                                'alloc_2' : alloc_2, 
+                                                })
+    else:
+        return render(request, 'RestApp/chef_detail.html', {
+                                                'chef' : chef, 
+                                                'allocations':  allocations, 
+                                                })
+
+    
