@@ -7,28 +7,29 @@
         </a>
       </div>
       <br><br>
+      {% if request.user.is_superuser %}
       <ul class="sidebar-menu">
-       
-           
+        
+            
         <li class="menu-header">{{request.user.username}}</li>
         <li>
-            <a href="{% url 'RestApp:dashboard' %}" ><i
+            <a href="{% url 'RestApp:admin-dashboard' %}" ><i
                 data-feather="airplay"></i><span>Dashboard</span></a>
           </li>
           <li>
             <a href="{% url 'RestApp:chef-list' %}" ><i
                 data-feather="user"></i><span>Chefs</span></a>
           </li>
-          <li>
 
+          {% comment %} <li>
             <a href="" ><i
                 data-feather="pie-chart"></i><span>Reports</span></a>
-          </li>
+          </li> {% endcomment %}
 
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="box"></i><span>Categories</span></a>
           <ul class="dropdown-menu">
-            {% for cat in cats%}
+            {% for cat in admin_cats%}
                 <li><a class="nav-link" href="">{{cat}}</a></li>            
             {% endfor %}
           </ul>
@@ -37,7 +38,7 @@
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="settings"></i><span>Settings</span></a>
           <ul class="dropdown-menu">
-            <li><a class="nav-link" href="{% url 'AccountsApp:edit-profile' request.user.id %}">Edit Profile</a></li>
+            {% comment %} <li><a class="nav-link" href="{% url 'AccountsApp:edit-profile' request.user.id %}">Edit Profile</a></li> {% endcomment %}
             <li><a class="nav-link" href="{% url 'AccountsApp:change-password' request.user.id %}">Change Password</a></li>
             <li><a class="nav-link" href="{% url 'AccountsApp:logout' %}">Logout</a></li>
           </ul>
@@ -46,5 +47,46 @@
     
       
       </ul>
+      {% else %}
+        <ul class="sidebar-menu">
+        
+            
+          <li class="menu-header">{{request.user.username}}</li>
+          <li>
+              <a href="{% url 'RestApp:dashboard' %}" ><i
+                  data-feather="airplay"></i><span>Dashboard</span></a>
+            </li>
+            <li>
+              <a href="{% url 'RestApp:chef-list' %}" ><i
+                  data-feather="user"></i><span>Chefs</span></a>
+            </li>
+
+            {% comment %} <li>
+              <a href="" ><i
+                  data-feather="pie-chart"></i><span>Reports</span></a>
+            </li> {% endcomment %}
+
+          <li class="dropdown">
+            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="box"></i><span>Categories</span></a>
+            <ul class="dropdown-menu">
+              {% for cat in cats%}
+                  <li><a class="nav-link" href="">{{cat}}</a></li>            
+              {% endfor %}
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="settings"></i><span>Settings</span></a>
+            <ul class="dropdown-menu">
+              <li><a class="nav-link" href="{% url 'AccountsApp:edit-profile' request.user.id %}">Edit Profile</a></li>
+              <li><a class="nav-link" href="{% url 'AccountsApp:change-password' request.user.id %}">Change Password</a></li>
+              <li><a class="nav-link" href="{% url 'AccountsApp:logout' %}">Logout</a></li>
+            </ul>
+          </li>
+
+      
+        
+        </ul>
+      {% endif %}
     </aside>
   </div>

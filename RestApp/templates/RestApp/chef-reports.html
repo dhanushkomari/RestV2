@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Chef Reports | Kritunga{% endblock %}
+{% block breadcrumb %}Chef Reports{% endblock %}
+
+{% block content %}
+<div class="card card-info">
+    <div class="card-header">
+        <h4><span style="color: orangered;">{{chef.chef_name}}&nbsp;</span> Reports</h4>
+        <div class="card-header-action">
+            <br>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <!-- <div class="row ">
+
+            <div class="col-md-4">
+                <div class="card l-bg-blue-dark">
+                    <div class="card-statistic-3 p-4">
+                        <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
+                        <div class="mb-4">
+                            <h5 class="card-title mb-0">Active Chefs</h5>
+                        </div>
+        
+                        <div class="row align-items-center mb-2 d-flex">
+                            <div class="col-8">
+                              <h4 class="d-flex align-items-center mb-0">
+                                {{chef_len}}
+                              </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+        
+            <div class="col-md-4">
+                <div class="card l-bg-orange-dark">
+                    <div class="card-statistic-3 p-4">
+                        <div class="card-icon card-icon-large"><i class="fas fa-project-diagram"></i></div>
+                        <div class="mb-4">
+                            <h5 class="card-title mb-0">Categories</h5>
+                        </div>
+        
+                        <div class="row align-items-center mb-2 d-flex">
+                            <div class="col-8">
+                              <h4 class="d-flex align-items-center mb-0">
+                                {{cat_len}}
+                              </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+                
+            <div class="col-md-4">
+                <div class="card l-bg-cherry">
+                    <div class="card-statistic-3 p-4">
+                        <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="mb-4">
+                            <h5 class="card-title mb-0">Allocated Orders</h5>
+                        </div>
+        
+                        <div class="row align-items-center mb-2 d-flex">
+                            <div class="col-8">
+                              <h4 class="d-flex align-items-center mb-0">
+                                {{alloc_len}}
+                              </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+        
+        </div> -->
+        
+    </div>
+</div>
+{% endblock %}
