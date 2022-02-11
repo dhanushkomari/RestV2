@@ -29,24 +29,28 @@ def test(request):
 #######################################################################
 def LoginView(request):
     if request.user.is_authenticated:
-        return redirect('RestApp:dashboard')
+        if request.user.is_superuser:
+            return redirect('RestApp:admin-dashboard')
+        else:
+            return redirect('RestApp:dashboard')
     else:
         if request.method == 'POST':
             username = request.POST['username']
             password = request.POST['password']
             if username != '' and password  != '':
-                user = authenticate(username = username, password = password)
-                
+                user = authenticate(username = username, password = password)                
                 if user is not None:
                     login(request, user)
-                    return redirect('RestApp:chef-list')
+                    if user.is_superuser:
+                        return redirect('RestApp:admin-dashboard')                     
+                    else:
+                        return redirect('RestApp:chef-list')
                 else:
                     messages.info(request, 'Oops! Invalid Credentials')
                     return redirect('AccountsApp:login')
             else:
                 messages.info(request, 'username and password cannot be empty')
-                return redirect('AccountsApp:login')
-                
+                return redirect('AccountsApp:login')                
         else:
             print('Not a Post method')
             return render(request, 'AccountsApp/auth-login.html')

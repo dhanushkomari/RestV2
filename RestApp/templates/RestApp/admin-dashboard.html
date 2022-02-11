@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-
-{% block title %} Dashboard &nbsp;|&nbsp; {{request.user.username}}{% endblock %}
-
-{% block breadcrumb %} Dashboard {% endblock %}
+{% block title %}Admin Dashboard | Kritunga{% endblock %}
+{% block breadcrumb %}Admin Dahboard{% endblock %}
 
 {% block content %}
 <div class="row ">
@@ -19,7 +17,7 @@
                 <div class="row align-items-center mb-2 d-flex">
                     <div class="col-8">
                       <h4 class="d-flex align-items-center mb-0">
-                        {{no_of_chefs}}
+                        {{chef_len}}
                       </h4>
                     </div>
                 </div>
@@ -38,7 +36,7 @@
                 <div class="row align-items-center mb-2 d-flex">
                     <div class="col-8">
                       <h4 class="d-flex align-items-center mb-0">
-                        {{no_of_cats}}
+                        {{cat_len}}
                       </h4>
                     </div>
                 </div>
@@ -57,20 +55,13 @@
                 <div class="row align-items-center mb-2 d-flex">
                     <div class="col-8">
                       <h4 class="d-flex align-items-center mb-0">
-                        {{no_of_alloc}}
+                        {{alloc_len}}
                       </h4>
                     </div>
                 </div>
             </div>
         </div>            
     </div>
-
-    
-
-
-
-
-
 
 </div>
 
@@ -144,5 +135,5 @@
       </div>
     </div>
 </div>
-{% endblock %}
 
+{% endblock %}

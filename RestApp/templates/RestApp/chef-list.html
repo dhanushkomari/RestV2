@@ -8,16 +8,17 @@
 
 {% block content %}
 
+{% if request.user.is_superuser%}
 <div class="card card-danger">
     <div class="card-header">
-      <h4>Available Chefs</h4>
-      <div class="card-header-action">
+    <h4>Available Chefs</h4>
+    <div class="card-header-action">
         <br>
-      </div>
+    </div>
     </div>
 
     <div class="row">
-    {% for chef in chefs %}
+    {% for chef in admin_chefs %}
         <div class="col-4 col-sm-3 col-lg-2 mb-4 mb-md-0">
             <div>
                 <div class="user-item">
@@ -25,8 +26,8 @@
                 <div class="user-details">
                     <div class="user-name">{{chef.chef_name}}</div>
                     <div class="user-cta">
-                    <a href = {% url 'RestApp:select-chef' chef.id %} class="btn btn-success follow-btn" data-follow-action="alert('user5 followed');"
-                        data-unfollow-action="alert('user5 unfollowed');">Select</a>
+                    <a href = "{% url 'RestApp:chef-reports' chef.id%}" class="btn btn-danger follow-btn" data-follow-action="alert('user5 followed');"
+                        data-unfollow-action="alert('user5 unfollowed');">Get Reports</a>
                     </div>
                 </div>
                 <br>
@@ -34,8 +35,39 @@
             </div>
         </div>
     {% endfor %}
-       
+    
     </div>
 </div>
 
+{% else%}
+    <div class="card card-danger">
+        <div class="card-header">
+        <h4>Available Chefs</h4>
+        <div class="card-header-action">
+            <br>
+        </div>
+        </div>
+
+        <div class="row">
+        {% for chef in chefs %}
+            <div class="col-4 col-sm-3 col-lg-2 mb-4 mb-md-0">
+                <div>
+                    <div class="user-item">
+                    <img alt="image" src="{% static chef.chef_image.url %}" class="img-fluid">
+                    <div class="user-details">
+                        <div class="user-name">{{chef.chef_name}}</div>
+                        <div class="user-cta">
+                        <a href = {% url 'RestApp:select-chef' chef.id %} class="btn btn-success follow-btn" data-follow-action="alert('user5 followed');"
+                            data-unfollow-action="alert('user5 unfollowed');">Select</a>
+                        </div>
+                    </div>
+                    <br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        
+        </div>
+    </div>
+{% endif %}
 {% endblock %}
