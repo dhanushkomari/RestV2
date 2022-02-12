@@ -26,8 +26,8 @@
                 <div class="user-details">
                     <div class="user-name">{{chef.chef_name}}</div>
                     <div class="user-cta">
-                    <a href = "{% url 'RestApp:chef-reports' chef.id%}" class="btn btn-danger follow-btn" data-follow-action="alert('user5 followed');"
-                        data-unfollow-action="alert('user5 unfollowed');">Get Reports</a>
+                    <a href = "{% url 'RestApp:chef-reports' chef.id%}" class="btn btn-sm btn-info"
+                        data-unfollow-action="alert('user5 unfollowed');">Reports</a>
                     </div>
                 </div>
                 <br>

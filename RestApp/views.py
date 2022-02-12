@@ -1,9 +1,12 @@
-from sre_constants import CATEGORY_LINEBREAK
+from importlib import import_module
+from tracemalloc import start
 from django.shortcuts import render, redirect
 from RestApp.models import Category, Chef, Allocation
 from django.contrib.auth.decorators import login_required, user_passes_test
-from datetime import date
+from datetime import date, datetime
 from django.db.models import Q
+from django.http import HttpResponse
+
 
 from AccountsApp.models import CustomUser as User
 
@@ -118,5 +121,52 @@ def AdminDashboardView(request):
 @login_required(login_url='/')
 def ChefReportsView(request, id):
     chef = Chef.objects.get(id = id) 
-    return render(request, 'RestApp/chef-reports.html', {'chef':chef})
+
+    chef_allocs = Allocation.objects.filter(chef = chef.chef_name)
+    len_chef_allocs = len(chef_allocs)
+
+    chef_today_allocs = Allocation.objects.filter(chef = chef.chef_name, created_at__date = date.today())
+    len_chef_today_allocs = len(chef_today_allocs)
+
+    comp_orders_today = len(Allocation.objects.filter(created_at = date.today(), status = 'complete', chef = chef.chef_name))
+    all_comp_orders = len(Allocation.objects.filter(status = 'complete', chef = chef.chef_name))
+
+    if request.method == 'POST':
+        startdate = request.POST['startdate']
+        enddate = request.POST['enddate']
+
+        if enddate > startdate:
+            
+            custom_allocs = Allocation.objects.filter(created_at__range = (startdate, enddate), chef = chef.chef_name)
+            custom_comp_allocs = Allocation.objects.filter(created_at__range = (startdate, enddate), chef = chef.chef_name, status = 'complete')
+            print(custom_allocs)
+            
+        elif enddate == startdate:
+            e = datetime.strptime(enddate, '%Y-%m-%d')
+            custom_allocs = Allocation.objects.filter(created_at__date = e, chef = chef.chef_name)
+            custom_comp_allocs = Allocation.objects.filter(created_at__date = e, chef = chef.chef_name, status = 'complete')
+
+        return render(request, 'RestApp/chef-reports.html', {'chef':chef,
+                                                         'chef_allocs' : chef_allocs,
+                                                         'len_chef_allocs' : len_chef_allocs,
+                                                         'chef_today_allocs' : chef_today_allocs,
+                                                         'len_chef_today_allocs' : len_chef_today_allocs,
+                                                         'comp_orders_today' : comp_orders_today,
+                                                         'all_comp_orders' : all_comp_orders,
+                                                         'custom_allocs' : len(custom_allocs),
+                                                         'custom_comp_allocs' : len(custom_comp_allocs),
+                                                         'startdate' : startdate,
+                                                         'enddate' : enddate,
+                                                         'post_method' : True,
+                                                        })
+
+    else:
+        return render(request, 'RestApp/chef-reports.html', {'chef':chef,
+                                                            'chef_allocs' : chef_allocs,
+                                                            'len_chef_allocs' : len_chef_allocs,
+                                                            'chef_today_allocs' : chef_today_allocs,
+                                                            'len_chef_today_allocs' : len_chef_today_allocs,
+                                                            'comp_orders_today' : comp_orders_today,
+                                                            'all_comp_orders' : all_comp_orders,
+                                                            })  
     
