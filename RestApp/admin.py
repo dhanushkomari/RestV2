@@ -20,7 +20,7 @@ class ChefAdmin(admin.ModelAdmin):
 admin.site.register(Chef, ChefAdmin)
 
 class AllocationAdmin(admin.ModelAdmin):
-    list_display = ['id' ,'orderitem_id', 'orderitem_name', 'orderitem_category', 'quantity', 'chef', 'status']
+    list_display = ['id' ,'orderitem_id', 'orderitem_name', 'orderitem_category', 'quantity', 'chef', 'status', 'created_at']
     list_per_page = 50
     list_editable = ['status',]
 admin.site.register(Allocation, AllocationAdmin)

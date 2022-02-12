@@ -13,20 +13,20 @@
     </div>
 
     <div class="card-body">
-        <!-- <div class="row ">
+        <div class="row ">
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card l-bg-blue-dark">
                     <div class="card-statistic-3 p-4">
                         <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
-                        <div class="mb-4">
-                            <h5 class="card-title mb-0">Active Chefs</h5>
+                        <div class="mb-3">
+                            <h5 class="card-title mb-0">Total Allocations</h5>
                         </div>
         
                         <div class="row align-items-center mb-2 d-flex">
                             <div class="col-8">
                               <h4 class="d-flex align-items-center mb-0">
-                                {{chef_len}}
+                                {{len_chef_allocs}}
                               </h4>
                             </div>
                         </div>
@@ -34,18 +34,18 @@
                 </div>            
             </div>
         
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card l-bg-orange-dark">
                     <div class="card-statistic-3 p-4">
                         <div class="card-icon card-icon-large"><i class="fas fa-project-diagram"></i></div>
-                        <div class="mb-4">
-                            <h5 class="card-title mb-0">Categories</h5>
+                        <div class="mb-3">
+                            <h5 class="card-title mb-0">Today Allocations</h5>
                         </div>
         
                         <div class="row align-items-center mb-2 d-flex">
                             <div class="col-8">
                               <h4 class="d-flex align-items-center mb-0">
-                                {{cat_len}}
+                                {{len_chef_today_allocs}}
                               </h4>
                             </div>
                         </div>
@@ -53,18 +53,37 @@
                 </div>            
             </div>
                 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card l-bg-cherry">
                     <div class="card-statistic-3 p-4">
                         <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i></div>
-                        <div class="mb-4">
-                            <h5 class="card-title mb-0">Allocated Orders</h5>
+                        <div class="mb-3">
+                            <h6 class="card-title mb-0">Total Completed Orders</h6>
                         </div>
         
                         <div class="row align-items-center mb-2 d-flex">
                             <div class="col-8">
                               <h4 class="d-flex align-items-center mb-0">
-                                {{alloc_len}}
+                                {{all_comp_orders}}
+                              </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+
+            <div class="col-md-3">
+                <div class="card l-bg-green">
+                    <div class="card-statistic-3 p-4">
+                        <div class="card-icon card-icon-large"><i class="fas fa-calendar"></i></div>
+                        <div class="mb-3">
+                            <h6 class="card-title mb-0">Today Completed Orders</h6>
+                        </div>
+        
+                        <div class="row align-items-center mb-2 d-flex">
+                            <div class="col-8">
+                              <h4 class="d-flex align-items-center mb-0">
+                                {{comp_orders_today}}
                               </h4>
                             </div>
                         </div>
@@ -72,7 +91,128 @@
                 </div>            
             </div>
         
-        </div> -->
+        </div>
+        
+    </div>
+</div>
+
+<!-- Custom Reports -->
+
+<div class="card card-secondary">
+    <div class="card-header">
+        <h4><span style="color: rgb(34, 26, 32);">Custom Reports</span> </h4>
+        <div class="card-header-action">
+            <br>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="row ">
+
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group input-group-sm">
+                                        <label>Start Date</label>
+                                        <input type="date" name = "startdate" class="form-control datepicker">
+                                      </div>
+                                      <div class="form-group input-group-sm">
+                                        <label>End Date</label>
+                                        <input type="date" name = "enddate" class="form-control datepicker">
+                                      </div>
+                                      <button type="submit" class="btn btn-md btn-success">Get Results</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         
+            </div>
+
+            {% if post_method %}
+
+                {% if custom_allocs%}
+                    <div class="col-md-6">
+                        <div class="card-header">
+                            <h4><span style="color: orangered;"></span> Reports({{startdate}} to {{enddate}})</h4>
+                            <div class="card-header-action">
+                                <br>
+                            </div>
+                        </div>
+                    
+                        <div class="card-body">
+                            <div class="row ">
+                    
+                                <div class="col-md-6">
+                                    <div class="card l-bg-blue-dark">
+                                        <div class="card-statistic-3 p-4">
+                                            <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
+                                            <div class="mb-3">
+                                                <h6 class="card-title mb-0">Allocations</h6>
+                                            </div>
+                            
+                                            <div class="row align-items-center mb-2 d-flex">
+                                                <div class="col-8">
+                                                <h4 class="d-flex align-items-center mb-0">
+                                                    {{len_chef_allocs}}
+                                                </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>            
+                                </div>
+                            
+                                <div class="col-md-6">
+                                    <div class="card l-bg-orange-dark">
+                                        <div class="card-statistic-3 p-4">
+                                            <div class="card-icon card-icon-large"><i class="fas fa-project-diagram"></i></div>
+                                            <div class="mb-3">
+                                                <h6 class="card-title mb-0">Completed</h6>
+                                            </div>
+                            
+                                            <div class="row align-items-center mb-2 d-flex">
+                                                <div class="col-8">
+                                                <h4 class="d-flex align-items-center mb-0">
+                                                    {{len_chef_today_allocs}}
+                                                </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>            
+                                </div>
+                                    
+                            
+                            
+                            </div>
+                            
+                        </div>
+                
+                    </div>
+                {% else %}
+                <div class="col-md-6">
+                    <div class="card-header">
+                        <h4><span style="color: orangered;"></span> Reports({{startdate}} to {{enddate}})</h4>
+                        <div class="card-header-action">
+                            <br>
+                        </div>
+                    </div>
+                    <div class="card-body"> 
+                        <br>
+                        <h5 style="color: orangered;"><i>Chef not recieved any allocations!</i></h5>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+                
+
+        
+        </div>
         
     </div>
 </div>
